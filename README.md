@@ -1,87 +1,54 @@
-# AI Medical Image Analysis System
+# React + TypeScript + Vite
 
-This system provides AI-powered analysis of medical images using deep learning and computer vision techniques.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Project Structure
-- `frontend/`: Web interface for uploading and viewing medical images
-- `backend/`: Flask API server
-- `api/`: Image processing utilities
-- `model/`: CNN model architecture and training
-- `data/`: Storage for uploads and datasets
-- `tests/`: Unit tests
+Currently, two official plugins are available:
 
-## Prerequisites
-- Python 3.8+
-- pip (Python package manager)
-- Web browser with JavaScript enabled
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Setup Instructions
+## Expanding the ESLint configuration
 
-1. Create a Python virtual environment:
-```bash
-python -m venv venv
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-2. Activate the virtual environment:
-- Windows:
-```bash
-.\venv\Scripts\activate
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
 ```
-- Unix/MacOS:
-```bash
-source venv/bin/activate
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-4. Create necessary directories:
-```bash
-mkdir -p data/uploads model/weights
-```
-
-5. Set up environment variables by copying `.env.example` to `.env` and adjusting values as needed.
-
-## Running the Application
-
-1. Start the Flask backend server:
-```bash
-python backend/app.py
-```
-
-2. Open the frontend:
-Open `frontend/index.html` in a web browser
-
-## Running Tests
-```bash
-python -m pytest tests/
-```
-
-## Features
-- Upload medical images (DICOM, JPEG, PNG formats)
-- Image enhancement and preprocessing
-- AI-powered disease detection
-- Real-time analysis results
-- HIPAA/GDPR compliant security measures
-
-## Security Notes
-- Ensure proper access controls are in place
-- Keep environment variables secure
-- Regularly update dependencies
-- Follow HIPAA compliance guidelines for medical data
-
-## Development
-1. Frontend modifications: Edit files in the `frontend/` directory
-2. Backend API changes: Modify `backend/app.py`
-3. Image processing: Update `api/image_utils.py`
-4. Model changes: Modify `model/cnn_model.py`
-
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
